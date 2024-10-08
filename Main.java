@@ -5,16 +5,7 @@ public class Main {
     public static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
-        System.out.println("BEFORE EDIT");
-        addToDoList("Mewarnai");
-        addToDoList("Membaca");
-        addToDoList("Bersepeda");
-        addToDoList("Berkhotbah");
-        showToDoList();
-        editToDoList(1, "Bekerja");
-
-        System.out.println("AFTER EDIT");
-        showToDoList();
+        showMainMenu();
     }
 
     public static void showToDoList() {
@@ -86,7 +77,8 @@ public class Main {
 
     public static String input(String info) {
         System.out.print(info + " : ");
-        return scanner.nextLine();
+        String data = scanner.nextLine();
+        return data;
     }
 
     public static void showMainMenu() {
@@ -119,7 +111,9 @@ public class Main {
     public static void showMenuRemoveToDoList() {
         System.out.println("MENGHAPUS TODO LIST");
         String number = input("Nomor yang dihapus (x jika batal)");
-        if (!number.equals("x")) {
+        if( number.equals("x")) {
+            //batal
+        }else{
             boolean success = removeToDoList(Integer.parseInt(number));
             if (!success) {
                 System.out.println("Gagal menghapus todo list: " + number);
@@ -130,7 +124,9 @@ public class Main {
     public static void showMenuAddToDoList() {
         System.out.println("MENAMBAH TODO LIST: ");
         String todo = input("Todo (x jika batal)");
-        if (!todo.equals("x")) {
+        if (todo.equals("x")) {
+            //batal
+        }else{
             addToDoList(todo);
         }
     }
@@ -138,8 +134,13 @@ public class Main {
     public static void showMenuEditToDoList() {
         System.out.println("MENGEDIT TODO LIST");
         String selectedTodo = input("Nomor todo yang akan diedit (x jika batal)");
-        if (!selectedTodo.equals("x")) {
-            String newTodo = input("Todo baru");
+        if (selectedTodo.equals("x")) {
+            return;
+        }
+            String newTodo = input("Masukkan Todo baru (x jika batal)");
+        if (selectedTodo.equals("x")) {
+            return;
+        }
             boolean isEditTodoSuccess = editToDoList(Integer.parseInt(selectedTodo), newTodo);
             if (isEditTodoSuccess) {
                 System.out.println("Berhasil Mengedit Todo");
@@ -148,4 +149,4 @@ public class Main {
             }
         }
     }
-}
+
